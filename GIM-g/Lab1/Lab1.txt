@@ -1,0 +1,44 @@
+Opracować grę typu Roll a Ball z takimi parametrami
+Wariant 1. Kolor materialu „playera” – niebieski,
+obiekty „pick up” dwóch typów
+1 typ obiekta „pick up” - cylinder,
+2 typ obiekta „pick up” - capsule,
+ilość obiektów „pick up” typu 1 - 9,
+ilość obiektów „pick up” typu 2 - 3,
+Kolor materialu obiektów „pick up” typu 1 – żółty,
+Kolor materialu obiektów „pick up” typu 2 – czerwony,
+Kolor materialu „ścian” - zielony
+Reguły gry:
+trafianie w obiekt typu 1 – 1 punkt
+trafianie w obiekt typu 2 – 3 punkty
+warunek zakończenia gry – 9 punktów
+
+
+Wariant 2. Kolor materialu „playera” – czerwony,
+obiekty „pick up” dwóch typów
+1 typ obiekta „pick up” - sześcian,
+2 typ obiekta „pick up” - kula,
+ilość obiektów „pick up” typu 1 - 8,
+ilość obiektów „pick up” typu 2 - 4,
+Kolor materialu obiektów „pick up” typu 1 – niebieski,
+Kolor materialu obiektów „pick up” typu 2 – brązowy,
+Kolor materialu „ścian” - pomaranczowy
+Reguły gry:
+trafianie w obiekt typu 1 – 1 punkt
+trafianie w obiekt typu 2 – 2 punkty
+warunek zakończenia gry – 10 punktów
+
+
+Wariant 3. Kolor materialu „playera” – zielony,
+obiekty „pick up” dwóch typów
+1 typ obiekta „pick up” - capsule,
+2 typ obiekta „pick up” - cylinder,
+ilość obiektów „pick up” typu 1 - 7,
+ilość obiektów „pick up” typu 2 - 5,
+Kolor materialu obiektów „pick up” typu 1 – żółty,
+Kolor materialu obiektów „pick up” typu 2 – brązowy,
+Kolor materialu „ścian” - niebieski
+Reguły gry:
+trafianie w obiekt typu 1 – 1 punkt
+trafianie w obiekt typu 2 – 4 punkty
+warunek zakończenia gry – 9 punktów
