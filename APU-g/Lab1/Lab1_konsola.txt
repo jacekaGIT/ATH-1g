@@ -1,0 +1,344 @@
+> #..... Jacek Adamczyk, sem 1, II st .......... 
+> #..... zaj 1, gr A, wariant 1 ................ PUNKT a)
+> a <- 2 * exp(5)
+> b <- 2 * a
+> a
+[1] 296.8263
+> b
+[1] 593.6526
+> max(a,b)
+[1] 593.6526
+> 
+> #............................................. PUNKT b)
+> ?sum()
+> 
+> #............................................. PUNKT c)
+> d <- c(15:25)
+> sum(d)
+[1] 220
+> 
+> #............................................. PUNKT d)
+> apropos("sum", mode = "function")
+ [1] ".colSums"                ".rowSums"                ".rs.callSummary"        
+ [4] ".rs.summarizeDir"        ".tryResumeInterrupt"     "colSums"                
+ [7] "contr.sum"               "cumsum"                  "format.summaryDefault"  
+[10] "print.summary.table"     "print.summary.warnings"  "print.summaryDefault"   
+[13] "rowsum"                  "rowsum.data.frame"       "rowsum.default"         
+[16] "rowSums"                 "sum"                     "sumbrk"                 
+[19] "sumDendrite"             "summary"                 "Summary"                
+[22] "summary.aov"             "summary.connection"      "summary.data.frame"     
+[25] "Summary.data.frame"      "summary.Date"            "Summary.Date"           
+[28] "summary.default"         "Summary.difftime"        "summary.factor"         
+[31] "Summary.factor"          "summary.glm"             "summary.lm"             
+[34] "summary.manova"          "summary.matrix"          "Summary.numeric_version"
+[37] "Summary.ordered"         "summary.POSIXct"         "Summary.POSIXct"        
+[40] "summary.POSIXlt"         "Summary.POSIXlt"         "summary.proc_time"      
+[43] "summary.srcfile"         "summary.srcref"          "summary.stepfun"        
+[46] "summary.table"           "summary.warnings"        "summaryRprof"           
+> 
+> #............................................. PUNKT e)
+> # katalog ooryginalny:
+> #setwd("C:/Users/jacek/OneDrive/Documents")
+> # zmiana:
+> setwd("C:/Users/jacek/Dysk Google/ATH 1/APU/W1")
+> getwd()
+[1] "C:/Users/jacek/Dysk Google/ATH 1/APU/W1"
+> a <- "smartfony Samsung"
+> write(a, file='Lab1_e.csv')
+> rm(a)
+> a
+BŁĄD: nie znaleziono obiektu 'a'
+> a <- read.csv(file='Lab1_e.csv')
+> a
+[1] smartfony.Samsung
+<0 wierszy> (lub 'row.names' o zerowej długości)
+> 
+> #............................................. PUNKT f)
+> #instalacja pakietu "gridExtra - wyłączona do nastepnych uruchomien skryptu
+> #install.packages("gridExtra")
+> library("gridExtra")
+> search()
+ [1] ".GlobalEnv"        "package:plotrix"   "package:gridExtra" "tools:rstudio"    
+ [5] "package:stats"     "package:graphics"  "package:grDevices" "package:utils"    
+ [9] "package:datasets"  "package:methods"   "Autoloads"         "package:base"     
+> 
+> # tabela
+> tt1 <- ttheme_default()
+> tt2 <- ttheme_minimal()
+> 
+> grid.arrange(
++   tableGrob(mtcars[1:10,], theme=tt1),
++   tableGrob(mtcars[1:10, 1:5], theme=tt2),
++   nrow=1)
+> 
+> #............................................. PUNKT g)
+> aa <- seq(100, 20, -4)
+> aa
+ [1] 100  96  92  88  84  80  76  72  68  64  60  56  52  48  44  40  36  32  28  24  20
+> 
+> #............................................. PUNKT h)
+> a <- c(9:5)
+> b <- c(11:16)
+> a
+[1] 9 8 7 6 5
+> b
+[1] 11 12 13 14 15 16
+> d <- c(b, a)
+> d
+ [1] 11 12 13 14 15 16  9  8  7  6  5
+> 
+> #............................................. PUNKT i)
+> # dane techniczne telefonów
+> # ze strony https://www.mgsm.pl/pl/
+> # sortowanie od najnowszych, Android 10
+> nazwy            <- c('Galaxy A Quantum', 'Galaxy A21S', 'Galaxy A41',
++                       'Galaxy S20', 'Galaxy A71', 'Galaxy M21', 'Galaxy Z Flip',
++                       'Galaxy S10 Lite', 'Galaxy A51', 'Galaxy Note10')
+> wyswietlacz      <- c(6.7, 6.5, 6.1, 6.7, 6.7, 6.4, 6.7, 6.7, 6.5, 6.75)
+> pamiec_RAM       <- c(8, 4, 4, 12, 6, 6, 8, 8, 4, 12)
+> pamiec_wbudowana <- c(128, 64, 64, 128, 128, 64, 256, 128, 128, 256)
+> aparat_foto      <- c(64, 48, 48, 64, 64, 48, 12, 48, 48, 12)
+> cena             <- c(2268, 1070, 1299, 5999, 1528, 999, 6600, 2799, 1699, 4999)
+> liczba_ocen      <- c(7, 4, 6, 3, 3, 47, 17, 41, 19, 33)
+> 
+> #ocena            <- c(7.23, 5.95, 5.85, 5.57, 5, 6.53, 6.55, 8.42, 7.48, 8.54,
+> #                     5.97, 6.81, 6,66, 6.84, 8.27)
+> 
+> smartfony <- data.frame(nazwy, wyswietlacz, pamiec_RAM, pamiec_wbudowana,
++                         aparat_foto, cena, liczba_ocen)
+> mean(smartfony$cena)
+[1] 2926
+> 
+> #............................................. PUNKT j)
+> nowy_wiersz <- data.frame(nazwy = 'Galaxy Xcover4S', wyswietlacz = 5,
++                           pamiec_RAM = 3, pamiec_wbudowana = 32,
++                           aparat_foto = 16, cena = 1119, liczba_ocen = 35)
+> smartfony <- rbind(smartfony, nowy_wiersz)
+> mean(smartfony$cena)
+[1] 2761.727
+> 
+> #............................................. PUNKT k)
+> #smartfony$ocena <- factor(c(7.23, 5.95, 5.85, 5.57, 5, 6.53, 6.55, 8.42, 7.48,
+> #                            8.54, 5.97))
+> smartfony$ocena <- factor(c(5, 4, 4, 3.5, 3, 3.5, 4, 5, 4.5,
++                             5, 4.5))
+> aggregate(smartfony$cena, list(smartfony$cena), mean)
+   Group.1    x
+1      999  999
+2     1070 1070
+3     1119 1119
+4     1299 1299
+5     1528 1528
+6     1699 1699
+7     2268 2268
+8     2799 2799
+9     4999 4999
+10    5999 5999
+11    6600 6600
+> smartfony
+              nazwy wyswietlacz pamiec_RAM pamiec_wbudowana aparat_foto cena
+1  Galaxy A Quantum        6.70          8              128          64 2268
+2       Galaxy A21S        6.50          4               64          48 1070
+3        Galaxy A41        6.10          4               64          48 1299
+4        Galaxy S20        6.70         12              128          64 5999
+5        Galaxy A71        6.70          6              128          64 1528
+6        Galaxy M21        6.40          6               64          48  999
+7     Galaxy Z Flip        6.70          8              256          12 6600
+8   Galaxy S10 Lite        6.70          8              128          48 2799
+9        Galaxy A51        6.50          4              128          48 1699
+10    Galaxy Note10        6.75         12              256          12 4999
+11  Galaxy Xcover4S        5.00          3               32          16 1119
+   liczba_ocen ocena
+1            7     5
+2            4     4
+3            6     4
+4            3   3.5
+5            3     3
+6           47   3.5
+7           17     4
+8           41     5
+9           19   4.5
+10          33     5
+11          35   4.5
+> 
+> #............................................. PUNKT l)
+> nnazwy            <- c('Galaxy XcoverPro', 'Galaxy A10', 'Galaxy A80',
++                        'Galaxy A40')
+> nwyswietlacz      <- c(6.3, 6.2, 6.7, 5.7)
+> npamiec_RAM       <- c(4, 2, 8, 4)
+> npamiec_wbudowana <- c(64, 32, 128, 64)
+> naparat_foto      <- c(25, 13, 48, 16)
+> ncena             <- c(2199, 699, 2399, 999)
+> nliczba_ocen      <- c(28, 11, 87, 406)
+> nocena            <- factor(c(5, 4, 4.5, 5))
+> #nocena            <- factor(c(6.81, 6,66, 6.84, 8.27))
+> 
+> nsmartfony <- data.frame(nazwy = nnazwy, wyswietlacz = nwyswietlacz,
++                          pamiec_RAM = npamiec_RAM,
++                          pamiec_wbudowana = npamiec_wbudowana,
++                          aparat_foto = naparat_foto, cena = ncena,
++                          liczba_ocen = nliczba_ocen, ocena = nocena)
+> 
+> smartfony <- rbind(smartfony, nsmartfony)
+> smartfony
+              nazwy wyswietlacz pamiec_RAM pamiec_wbudowana aparat_foto cena
+1  Galaxy A Quantum        6.70          8              128          64 2268
+2       Galaxy A21S        6.50          4               64          48 1070
+3        Galaxy A41        6.10          4               64          48 1299
+4        Galaxy S20        6.70         12              128          64 5999
+5        Galaxy A71        6.70          6              128          64 1528
+6        Galaxy M21        6.40          6               64          48  999
+7     Galaxy Z Flip        6.70          8              256          12 6600
+8   Galaxy S10 Lite        6.70          8              128          48 2799
+9        Galaxy A51        6.50          4              128          48 1699
+10    Galaxy Note10        6.75         12              256          12 4999
+11  Galaxy Xcover4S        5.00          3               32          16 1119
+12 Galaxy XcoverPro        6.30          4               64          25 2199
+13       Galaxy A10        6.20          2               32          13  699
+14       Galaxy A80        6.70          8              128          48 2399
+15       Galaxy A40        5.70          4               64          16  999
+   liczba_ocen ocena
+1            7     5
+2            4     4
+3            6     4
+4            3   3.5
+5            3     3
+6           47   3.5
+7           17     4
+8           41     5
+9           19   4.5
+10          33     5
+11          35   4.5
+12          28     5
+13          11     4
+14          87   4.5
+15         406     5
+> 
+> dane_wykresu <- table(smartfony$ocena)
+> dane_wykresu
+
+  3 3.5   4 4.5   5 
+  1   2   4   3   5 
+> barplot(dane_wykresu, main = 'Liczebność reprezentantów każdej z ocen')
+> 
+> #............................................. PUNKT m)
+> oceny_tabela <- table(smartfony$ocena)
+> udzial_procentowy <- oceny_tabela / sum(oceny_tabela)
+> oceny_tabela
+
+  3 3.5   4 4.5   5 
+  1   2   4   3   5 
+> udzial_procentowy
+
+         3        3.5          4        4.5          5 
+0.06666667 0.13333333 0.26666667 0.20000000 0.33333333 
+> pie(udzial_procentowy, main = 'Udział procentowy ocen')
+> 
+> #instalacja pakietu "plotrix" - wyłączona do nastepnych uruchomien skryptu
+> #install.packages("plotrix")
+> library(plotrix)
+> fan.plot(oceny_tabela, main = "Udział procentowy ocen",
++          labels = names((oceny_tabela)))
+> 
+> #............................................. PUNKT n)
+> nowa_kolumna <- ifelse(smartfony$liczba_ocen > 100, 'więcej niż 100 opinii',
++                        ifelse(smartfony$liczba_ocen >= 50, '50-100 opinii',
++                               ifelse(smartfony$liczba_ocen < 50,
++                                      'mniej niż 50 opinii', 'nie ma')))
+> nowa_kolumna
+ [1] "mniej niż 50 opinii"   "mniej niż 50 opinii"   "mniej niż 50 opinii"  
+ [4] "mniej niż 50 opinii"   "mniej niż 50 opinii"   "mniej niż 50 opinii"  
+ [7] "mniej niż 50 opinii"   "mniej niż 50 opinii"   "mniej niż 50 opinii"  
+[10] "mniej niż 50 opinii"   "mniej niż 50 opinii"   "mniej niż 50 opinii"  
+[13] "mniej niż 50 opinii"   "50-100 opinii"         "więcej niż 100 opinii"
+> smartfony['status_opinii'] <- factor(nowa_kolumna)
+> smartfony
+              nazwy wyswietlacz pamiec_RAM pamiec_wbudowana aparat_foto cena
+1  Galaxy A Quantum        6.70          8              128          64 2268
+2       Galaxy A21S        6.50          4               64          48 1070
+3        Galaxy A41        6.10          4               64          48 1299
+4        Galaxy S20        6.70         12              128          64 5999
+5        Galaxy A71        6.70          6              128          64 1528
+6        Galaxy M21        6.40          6               64          48  999
+7     Galaxy Z Flip        6.70          8              256          12 6600
+8   Galaxy S10 Lite        6.70          8              128          48 2799
+9        Galaxy A51        6.50          4              128          48 1699
+10    Galaxy Note10        6.75         12              256          12 4999
+11  Galaxy Xcover4S        5.00          3               32          16 1119
+12 Galaxy XcoverPro        6.30          4               64          25 2199
+13       Galaxy A10        6.20          2               32          13  699
+14       Galaxy A80        6.70          8              128          48 2399
+15       Galaxy A40        5.70          4               64          16  999
+   liczba_ocen ocena         status_opinii
+1            7     5   mniej niż 50 opinii
+2            4     4   mniej niż 50 opinii
+3            6     4   mniej niż 50 opinii
+4            3   3.5   mniej niż 50 opinii
+5            3     3   mniej niż 50 opinii
+6           47   3.5   mniej niż 50 opinii
+7           17     4   mniej niż 50 opinii
+8           41     5   mniej niż 50 opinii
+9           19   4.5   mniej niż 50 opinii
+10          33     5   mniej niż 50 opinii
+11          35   4.5   mniej niż 50 opinii
+12          28     5   mniej niż 50 opinii
+13          11     4   mniej niż 50 opinii
+14          87   4.5         50-100 opinii
+15         406     5 więcej niż 100 opinii
+> pie(table(smartfony$status_opinii))
+> 
+> #............................................. PUNKT o)
+> paste(smartfony$nazwy, ' ma ocenę klientów ', smartfony$ocena,
++       ' bo ma liczbę opinii ', smartfony$liczba_ocen)
+ [1] "Galaxy A Quantum  ma ocenę klientów  5  bo ma liczbę opinii  7"  
+ [2] "Galaxy A21S  ma ocenę klientów  4  bo ma liczbę opinii  4"       
+ [3] "Galaxy A41  ma ocenę klientów  4  bo ma liczbę opinii  6"        
+ [4] "Galaxy S20  ma ocenę klientów  3.5  bo ma liczbę opinii  3"      
+ [5] "Galaxy A71  ma ocenę klientów  3  bo ma liczbę opinii  3"        
+ [6] "Galaxy M21  ma ocenę klientów  3.5  bo ma liczbę opinii  47"     
+ [7] "Galaxy Z Flip  ma ocenę klientów  4  bo ma liczbę opinii  17"    
+ [8] "Galaxy S10 Lite  ma ocenę klientów  5  bo ma liczbę opinii  41"  
+ [9] "Galaxy A51  ma ocenę klientów  4.5  bo ma liczbę opinii  19"     
+[10] "Galaxy Note10  ma ocenę klientów  5  bo ma liczbę opinii  33"    
+[11] "Galaxy Xcover4S  ma ocenę klientów  4.5  bo ma liczbę opinii  35"
+[12] "Galaxy XcoverPro  ma ocenę klientów  5  bo ma liczbę opinii  28" 
+[13] "Galaxy A10  ma ocenę klientów  4  bo ma liczbę opinii  11"       
+[14] "Galaxy A80  ma ocenę klientów  4.5  bo ma liczbę opinii  87"     
+[15] "Galaxy A40  ma ocenę klientów  5  bo ma liczbę opinii  406"      
+> 
+> #............................................. PUNKT p)
+> write.csv(smartfony, 'JacekAdamczyk_APU_Lab1.csv')
+> smartfony_z_pliku <- read.csv('JacekAdamczyk_APU_Lab1.csv')
+> smartfony_z_pliku
+    X            nazwy wyswietlacz pamiec_RAM pamiec_wbudowana aparat_foto cena
+1   1 Galaxy A Quantum        6.70          8              128          64 2268
+2   2      Galaxy A21S        6.50          4               64          48 1070
+3   3       Galaxy A41        6.10          4               64          48 1299
+4   4       Galaxy S20        6.70         12              128          64 5999
+5   5       Galaxy A71        6.70          6              128          64 1528
+6   6       Galaxy M21        6.40          6               64          48  999
+7   7    Galaxy Z Flip        6.70          8              256          12 6600
+8   8  Galaxy S10 Lite        6.70          8              128          48 2799
+9   9       Galaxy A51        6.50          4              128          48 1699
+10 10    Galaxy Note10        6.75         12              256          12 4999
+11 11  Galaxy Xcover4S        5.00          3               32          16 1119
+12 12 Galaxy XcoverPro        6.30          4               64          25 2199
+13 13       Galaxy A10        6.20          2               32          13  699
+14 14       Galaxy A80        6.70          8              128          48 2399
+15 15       Galaxy A40        5.70          4               64          16  999
+   liczba_ocen ocena         status_opinii
+1            7   5.0   mniej niż 50 opinii
+2            4   4.0   mniej niż 50 opinii
+3            6   4.0   mniej niż 50 opinii
+4            3   3.5   mniej niż 50 opinii
+5            3   3.0   mniej niż 50 opinii
+6           47   3.5   mniej niż 50 opinii
+7           17   4.0   mniej niż 50 opinii
+8           41   5.0   mniej niż 50 opinii
+9           19   4.5   mniej niż 50 opinii
+10          33   5.0   mniej niż 50 opinii
+11          35   4.5   mniej niż 50 opinii
+12          28   5.0   mniej niż 50 opinii
+13          11   4.0   mniej niż 50 opinii
+14          87   4.5         50-100 opinii
+15         406   5.0 więcej niż 100 opinii
