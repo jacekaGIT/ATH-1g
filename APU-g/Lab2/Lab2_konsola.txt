@@ -1,0 +1,93 @@
+> #..... Jacek Adamczyk, sem 1, II st .......... 
+> #..... zaj 2, gr A, wariant 1 ................
+> #....Procedura Analitycznej Hierarchizacji....
+> 
+> 
+> #install.packages('ahp')
+> library(ahp)
+Komunikat ostrzegawczy:
+pakiet ‘ahp’ został zbudowany w wersji R 3.6.3 
+> library(data.tree)
+Komunikat ostrzegawczy:
+pakiet ‘data.tree’ został zbudowany w wersji R 3.6.3 
+> 
+> setwd("C:/Users/jacek/Dysk Google/ATH 1/APU/Lab2")
+> smartfonyAhp <- Load("smartfonySamsung.yml")
+> 
+> print(smartfonyAhp, filterFun = isNotLeaf)
+                levelName
+1 Zakup smartfona Samsung
+2  ¦--wydajnosc          
+3  ¦--jakosc             
+4  ¦--styl               
+5  °--cena               
+> 
+> Calculate(smartfonyAhp)
+> print(smartfonyAhp, priority = function(x) x$parent$priority["Total", x$name])
+                  levelName   priority
+1  Zakup smartfona Samsung          NA
+2   ¦--wydajnosc            0.47370323
+3   ¦   ¦--Galaxy A Quantum 0.13399747
+4   ¦   ¦--Galaxy A21S      0.13399747
+5   ¦   ¦--Galaxy A41       0.13399747
+6   ¦   ¦--Galaxy S20       0.07331764
+7   ¦   ¦--Galaxy A71       0.12912576
+8   ¦   ¦--Galaxy M21       0.07010015
+9   ¦   ¦--Galaxy Z Flip    0.12446785
+10  ¦   ¦--Galaxy S10 Lite  0.06699873
+11  ¦   ¦--Galaxy A51       0.06699873
+12  ¦   °--Galaxy Note10    0.06699873
+13  ¦--jakosc               0.35800167
+14  ¦   ¦--Galaxy A Quantum 0.10596151
+15  ¦   ¦--Galaxy A21S      0.10596151
+16  ¦   ¦--Galaxy A41       0.10596151
+17  ¦   ¦--Galaxy S20       0.10596151
+18  ¦   ¦--Galaxy A71       0.10596151
+19  ¦   ¦--Galaxy M21       0.06312388
+20  ¦   ¦--Galaxy Z Flip    0.10176714
+21  ¦   ¦--Galaxy S10 Lite  0.10176714
+22  ¦   ¦--Galaxy A51       0.10176714
+23  ¦   °--Galaxy Note10    0.10176714
+24  ¦--styl                 0.11267426
+25  ¦   ¦--Galaxy A Quantum 0.10000000
+26  ¦   ¦--Galaxy A21S      0.10000000
+27  ¦   ¦--Galaxy A41       0.10000000
+28  ¦   ¦--Galaxy S20       0.10000000
+29  ¦   ¦--Galaxy A71       0.10000000
+30  ¦   ¦--Galaxy M21       0.10000000
+31  ¦   ¦--Galaxy Z Flip    0.10000000
+32  ¦   ¦--Galaxy S10 Lite  0.10000000
+33  ¦   ¦--Galaxy A51       0.10000000
+34  ¦   °--Galaxy Note10    0.10000000
+35  °--cena                 0.05562085
+36      ¦--Galaxy A Quantum 0.03066358
+37      ¦--Galaxy A21S      0.08951541
+38      ¦--Galaxy A41       0.02906668
+39      ¦--Galaxy S20       0.08951541
+40      ¦--Galaxy A71       0.02308739
+41      ¦--Galaxy M21       0.27000619
+42      ¦--Galaxy Z Flip    0.01653276
+43      ¦--Galaxy S10 Lite  0.12225160
+44      ¦--Galaxy A51       0.04754655
+45      °--Galaxy Note10    0.28181443
+> Visualize(smartfonyAhp)
+> Analyze(smartfonyAhp)
+                          Weight Galaxy A21S Galaxy A Quantum Galaxy A41 Galaxy A71
+1 Zakup smartfona Samsung 100.0%       11.8%            11.4%      11.4%      11.2%
+2  ¦--wydajnosc            47.4%        6.3%             6.3%       6.3%       6.1%
+3  ¦--jakosc               35.8%        3.8%             3.8%       3.8%       3.8%
+4  ¦--styl                 11.3%        1.1%             1.1%       1.1%       1.1%
+5  °--cena                  5.6%        0.5%             0.2%       0.2%       0.1%
+  Galaxy Z Flip Galaxy Note10 Galaxy S20 Galaxy S10 Lite Galaxy M21 Galaxy A51
+1         10.8%          9.5%       8.9%            8.6%       8.2%       8.2%
+2          5.9%          3.2%       3.5%            3.2%       3.3%       3.2%
+3          3.6%          3.6%       3.8%            3.6%       2.3%       3.6%
+4          1.1%          1.1%       1.1%            1.1%       1.1%       1.1%
+5          0.1%          1.6%       0.5%            0.7%       1.5%       0.3%
+  Inconsistency
+1          6.3%
+2          0.2%
+3          0.2%
+4          0.0%
+5          2.6%
+> AnalyzeTable(smartfonyAhp)

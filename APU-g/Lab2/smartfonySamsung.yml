@@ -1,0 +1,273 @@
+Version: 2
+
+Alternatives: &alternatives
+ Galaxy A Quantum:
+  cena: 2268
+  ocena: 5
+  liczba_ocen: 7
+  jakosc: 6
+  styl: 5 
+ Galaxy A21S:
+  cena: 1070
+  ocena: 4
+  liczba_ocen: 4
+  jakosc: 6
+  styl: 5
+ Galaxy A41:
+  cena: 1299
+  ocena: 4
+  liczba_ocen: 6
+  jakosc: 6
+  styl: 5
+ Galaxy S20:
+  cena: 5999
+  ocena: 4
+  liczba_ocen: 3
+  jakosc: 6
+  styl: 5
+ Galaxy A71:
+  cena: 1528
+  ocena: 3
+  liczba_ocen: 3
+  jakosc: 6
+  styl: 5
+  #6
+ Galaxy M21:
+  cena: 999
+  ocena: 4
+  liczba_ocen: 47
+  jakosc: 5
+  styl: 5
+ Galaxy Z Flip:
+  cena: 6600
+  ocena: 4
+  liczba_ocen: 17
+  jakosc: 6
+  styl: 5
+ Galaxy S10 Lite:
+  cena: 2799
+  ocena: 5
+  liczba_ocen: 41
+  jakosc: 6
+  styl: 5
+ Galaxy A51:
+  cena: 1699
+  ocena: 5
+  liczba_ocen: 19
+  jakosc: 6
+  styl: 5
+ Galaxy Note10:
+  cena: 4999
+  ocena: 5
+  liczba_ocen: 33
+  jakosc: 6
+  styl: 5
+
+Goal:
+ name: Zakup smartfona Samsung
+ author: Jacek Adamczyk
+ preferences:
+  pairwise:
+  - [wydajnosc, jakosc, 2]
+  - [wydajnosc, styl, 4]
+  - [wydajnosc, cena, 6]
+  - [jakosc, styl, 5]
+  - [jakosc, cena, 6]
+  - [styl, cena, 3]
+ children:
+  wydajnosc:
+   preferences:
+    pairwise:
+     - [ Galaxy A Quantum, Galaxy A21S, 1]
+     - [ Galaxy A Quantum, Galaxy A41, 1]
+     - [ Galaxy A Quantum, Galaxy S20, 2]
+     - [ Galaxy A Quantum, Galaxy A71, 1]
+     - [ Galaxy A Quantum, Galaxy M21, 2]
+     - [ Galaxy A Quantum, Galaxy Z Flip, 1]
+     - [ Galaxy A Quantum, Galaxy S10 Lite, 2]
+     - [ Galaxy A Quantum, Galaxy A51, 2]
+     - [ Galaxy A Quantum, Galaxy Note10, 2]
+     - [ Galaxy A21S, Galaxy A41, 1]
+     - [ Galaxy A21S, Galaxy S20, 2]
+     - [ Galaxy A21S, Galaxy A71, 1]
+     - [ Galaxy A21S, Galaxy M21, 2]
+     - [ Galaxy A21S, Galaxy Z Flip, 1]
+     - [ Galaxy A21S, Galaxy S10 Lite, 2]
+     - [ Galaxy A21S, Galaxy A51, 2]
+     - [ Galaxy A21S, Galaxy Note10, 2]
+     - [ Galaxy A41, Galaxy S20, 2]
+     - [ Galaxy A41, Galaxy A71, 1]
+     - [ Galaxy A41, Galaxy M21, 2]
+     - [ Galaxy A41, Galaxy Z Flip, 1]
+     - [ Galaxy A41, Galaxy S10 Lite, 2]
+     - [ Galaxy A41, Galaxy A51, 2]
+     - [ Galaxy A41, Galaxy Note10, 2]
+     - [ Galaxy S20, Galaxy A71, 3/4]
+     - [ Galaxy S20, Galaxy M21, 1]
+     - [ Galaxy S20, Galaxy Z Flip, 3/4]
+     - [ Galaxy S20, Galaxy S10 Lite, 1]
+     - [ Galaxy S20, Galaxy A51, 1]
+     - [ Galaxy S20, Galaxy Note10, 1]
+     - [ Galaxy A71, Galaxy M21, 2]
+     - [ Galaxy A71, Galaxy Z Flip, 1]
+     - [ Galaxy A71, Galaxy S10 Lite, 2]
+     - [ Galaxy A71, Galaxy A51, 2]
+     - [ Galaxy A71, Galaxy Note10, 2]
+     - [ Galaxy M21, Galaxy Z Flip, 3/4]
+     - [ Galaxy M21, Galaxy S10 Lite, 1]
+     - [ Galaxy M21, Galaxy A51, 1]
+     - [ Galaxy M21, Galaxy Note10, 1]
+     - [ Galaxy Z Flip, Galaxy S10 Lite, 2]
+     - [ Galaxy Z Flip, Galaxy A51, 2]
+     - [ Galaxy Z Flip, Galaxy Note10, 2]
+     - [ Galaxy S10 Lite, Galaxy A51, 1]
+     - [ Galaxy S10 Lite, Galaxy Note10, 1]
+     - [ Galaxy A51, Galaxy Note10, 1]   
+   children: *alternatives
+  jakosc:
+   preferences:
+    pairwise:
+     - [ Galaxy A Quantum, Galaxy A21S, 1]
+     - [ Galaxy A Quantum, Galaxy A41, 1]
+     - [ Galaxy A Quantum, Galaxy S20, 1]
+     - [ Galaxy A Quantum, Galaxy A71, 1]
+     - [ Galaxy A Quantum, Galaxy M21, 2]
+     - [ Galaxy A Quantum, Galaxy Z Flip, 1]
+     - [ Galaxy A Quantum, Galaxy S10 Lite, 1]
+     - [ Galaxy A Quantum, Galaxy A51, 1]
+     - [ Galaxy A Quantum, Galaxy Note10, 1]
+     - [ Galaxy A21S, Galaxy A41, 1]
+     - [ Galaxy A21S, Galaxy S20, 1]
+     - [ Galaxy A21S, Galaxy A71, 1]
+     - [ Galaxy A21S, Galaxy M21, 2]
+     - [ Galaxy A21S, Galaxy Z Flip, 1]
+     - [ Galaxy A21S, Galaxy S10 Lite, 1]
+     - [ Galaxy A21S, Galaxy A51, 1]
+     - [ Galaxy A21S, Galaxy Note10, 1]
+     - [ Galaxy A41, Galaxy S20, 1]
+     - [ Galaxy A41, Galaxy A71, 1]
+     - [ Galaxy A41, Galaxy M21, 2]
+     - [ Galaxy A41, Galaxy Z Flip, 1]
+     - [ Galaxy A41, Galaxy S10 Lite, 1]
+     - [ Galaxy A41, Galaxy A51, 1]
+     - [ Galaxy A41, Galaxy Note10, 1]
+     - [ Galaxy S20, Galaxy A71, 1]
+     - [ Galaxy S20, Galaxy M21, 2]
+     - [ Galaxy S20, Galaxy Z Flip, 1]
+     - [ Galaxy S20, Galaxy S10 Lite, 1]
+     - [ Galaxy S20, Galaxy A51, 1]
+     - [ Galaxy S20, Galaxy Note10, 1] 
+     - [ Galaxy A71, Galaxy M21, 2]
+     - [ Galaxy A71, Galaxy Z Flip, 1]
+     - [ Galaxy A71, Galaxy S10 Lite, 1]
+     - [ Galaxy A71, Galaxy A51, 1]
+     - [ Galaxy A71, Galaxy Note10, 1]
+     - [ Galaxy M21, Galaxy Z Flip, 3/4]
+     - [ Galaxy M21, Galaxy S10 Lite, 3/4]
+     - [ Galaxy M21, Galaxy A51, 3/4]
+     - [ Galaxy M21, Galaxy Note10, 3/4]
+     - [ Galaxy Z Flip, Galaxy S10 Lite, 1]
+     - [ Galaxy Z Flip, Galaxy A51, 1]
+     - [ Galaxy Z Flip, Galaxy Note10, 1]
+     - [ Galaxy S10 Lite, Galaxy A51, 1]
+     - [ Galaxy S10 Lite, Galaxy Note10, 1]
+     - [ Galaxy A51, Galaxy Note10, 1]
+   children: *alternatives
+  styl:
+   preferences:
+    pairwise:
+     - [ Galaxy A Quantum, Galaxy A21S, 1]
+     - [ Galaxy A Quantum, Galaxy A41, 1]
+     - [ Galaxy A Quantum, Galaxy S20, 1]
+     - [ Galaxy A Quantum, Galaxy A71, 1]
+     - [ Galaxy A Quantum, Galaxy M21, 1]
+     - [ Galaxy A Quantum, Galaxy Z Flip, 1]
+     - [ Galaxy A Quantum, Galaxy S10 Lite, 1]
+     - [ Galaxy A Quantum, Galaxy A51, 1]
+     - [ Galaxy A Quantum, Galaxy Note10, 1]
+     - [ Galaxy A21S, Galaxy A41, 1]
+     - [ Galaxy A21S, Galaxy S20, 1]
+     - [ Galaxy A21S, Galaxy A71, 1]
+     - [ Galaxy A21S, Galaxy M21, 1]
+     - [ Galaxy A21S, Galaxy Z Flip, 1]
+     - [ Galaxy A21S, Galaxy S10 Lite, 1]
+     - [ Galaxy A21S, Galaxy A51, 1]
+     - [ Galaxy A21S, Galaxy Note10, 1]
+     - [ Galaxy A41, Galaxy S20, 1]
+     - [ Galaxy A41, Galaxy A71, 1]
+     - [ Galaxy A41, Galaxy M21, 1]
+     - [ Galaxy A41, Galaxy Z Flip, 1]
+     - [ Galaxy A41, Galaxy S10 Lite, 1]
+     - [ Galaxy A41, Galaxy A51, 1]
+     - [ Galaxy A41, Galaxy Note10, 1]
+     - [ Galaxy S20, Galaxy A71, 1]
+     - [ Galaxy S20, Galaxy M21, 1]
+     - [ Galaxy S20, Galaxy Z Flip, 1]
+     - [ Galaxy S20, Galaxy S10 Lite, 1]
+     - [ Galaxy S20, Galaxy A51, 1]
+     - [ Galaxy S20, Galaxy Note10, 1] 
+     - [ Galaxy A71, Galaxy M21, 1]
+     - [ Galaxy A71, Galaxy Z Flip, 1]
+     - [ Galaxy A71, Galaxy S10 Lite, 1]
+     - [ Galaxy A71, Galaxy A51, 1]
+     - [ Galaxy A71, Galaxy Note10, 1]
+     - [ Galaxy M21, Galaxy Z Flip, 1]
+     - [ Galaxy M21, Galaxy S10 Lite, 1]
+     - [ Galaxy M21, Galaxy A51, 1]
+     - [ Galaxy M21, Galaxy Note10, 1]
+     - [ Galaxy Z Flip, Galaxy S10 Lite, 1]
+     - [ Galaxy Z Flip, Galaxy A51, 1]
+     - [ Galaxy Z Flip, Galaxy Note10, 1]
+     - [ Galaxy S10 Lite, Galaxy A51, 1]
+     - [ Galaxy S10 Lite, Galaxy Note10, 1]
+
+   children: *alternatives
+  cena:
+   preferences:
+    pairwise:
+     - [ Galaxy A Quantum, Galaxy A21S, 1/4]
+     - [ Galaxy A Quantum, Galaxy A41, 1]
+     - [ Galaxy A Quantum, Galaxy S20, 1/4]
+     - [ Galaxy A Quantum, Galaxy A71, 2]
+     - [ Galaxy A Quantum, Galaxy M21, 1/8]
+     - [ Galaxy A Quantum, Galaxy Z Flip, 3]
+     - [ Galaxy A Quantum, Galaxy S10 Lite, 1/5]
+     - [ Galaxy A Quantum, Galaxy A51, 1/2]
+     - [ Galaxy A Quantum, Galaxy Note10, 1/8]
+     - [ Galaxy A21S, Galaxy A41, 4]
+     - [ Galaxy A21S, Galaxy S20, 1]
+     - [ Galaxy A21S, Galaxy A71, 5]
+     - [ Galaxy A21S, Galaxy M21, 1/4]
+     - [ Galaxy A21S, Galaxy Z Flip, 6]
+     - [ Galaxy A21S, Galaxy S10 Lite, 1/2]
+     - [ Galaxy A21S, Galaxy A51, 2]
+     - [ Galaxy A21S, Galaxy Note10, 1/4]
+     - [ Galaxy A41, Galaxy S20, 1/4]
+     - [ Galaxy A41, Galaxy A71, 2]
+     - [ Galaxy A41, Galaxy M21, 1/8]
+     - [ Galaxy A41, Galaxy Z Flip, 2]
+     - [ Galaxy A41, Galaxy S10 Lite, 1/5]
+     - [ Galaxy A41, Galaxy A51, 1/2]
+     - [ Galaxy A41, Galaxy Note10, 1/8]
+     - [ Galaxy S20, Galaxy A71, 5]
+     - [ Galaxy S20, Galaxy M21, 1/4]
+     - [ Galaxy S20, Galaxy Z Flip, 6]
+     - [ Galaxy S20, Galaxy S10 Lite, 1/2]
+     - [ Galaxy S20, Galaxy A51, 2]
+     - [ Galaxy S20, Galaxy Note10, 1/4]  
+     - [ Galaxy A71, Galaxy M21, 1/8]
+     - [ Galaxy A71, Galaxy Z Flip, 2]
+     - [ Galaxy A71, Galaxy S10 Lite, 1/5]
+     - [ Galaxy A71, Galaxy A51, 1/2]
+     - [ Galaxy A71, Galaxy Note10, 1/8]
+     - [ Galaxy M21, Galaxy Z Flip, 10]
+     - [ Galaxy M21, Galaxy S10 Lite, 3]
+     - [ Galaxy M21, Galaxy A51, 7]
+     - [ Galaxy M21, Galaxy Note10, 1]
+     - [ Galaxy Z Flip, Galaxy S10 Lite, 1/7]
+     - [ Galaxy Z Flip, Galaxy A51, 1/3]
+     - [ Galaxy Z Flip, Galaxy Note10, 1/10]
+     - [ Galaxy S10 Lite, Galaxy A51, 2]
+     - [ Galaxy S10 Lite, Galaxy Note10, 1/4]
+     - [ Galaxy A51, Galaxy Note10, 1/7] 
+   children: *alternatives
