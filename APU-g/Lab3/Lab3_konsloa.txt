@@ -1,0 +1,365 @@
+> #..... Jacek Adamczyk, sem 1, II st .......... 
+> #..... zaj 4, gr A, wariant 1 ................
+> #.... Użycie sztucznych sieci neuronowych ....
+> #.............................................
+> 
+> #install.packages("neuralnet")
+> library("neuralnet")
+Komunikat ostrzegawczy:
+pakiet ‘neuralnet’ został zbudowany w wersji R 3.6.3 
+> 
+> # Funkcja normalizująca dane w zakr min do max
+> normalize <- function(x) {
++   return ((x - min(x)) / (max(x) - min(x)))
++ }
+> 
+> 
+> #.................. Zad 1 ....................
+> #.............................................
+> 
+> # Funkcja zadana
+> fzad <- function(x) {
++   return ((x ^ 2) + (2 * x))
++ }
+> 
+> max <- 10 # Górna wartość zakresu argumentów
+> min <- 1  # Dolna wartość zakresu argumentów
+> 
+> traininginput <- as.data.frame(runif(100, min, max))
+> traininginput [1:20,]
+ [1] 2.744364 9.425654 3.103221 9.948363 1.984232 6.105188 9.228062 3.645919 9.153254
+[10] 5.903342 6.163485 2.374470 8.063619 6.939602 7.006511 7.648574 2.251984 5.093501
+[19] 7.547260 3.642868
+> 
+> trainingoutput <- fzad(traininginput)
+> trainingoutput [1:20,]
+ [1]  13.020263 107.694264  15.836423 118.866658   7.905642  49.483690 103.613251
+ [8]  20.584562 102.088568  46.656129  50.315520  10.387046  81.149198  62.037277
+[15]  63.104215  73.797827   9.575397  36.130757  72.055652  20.556225
+> 
+> scaled.trininginput <- as.data.frame(lapply(traininginput, normalize))
+> scaled.trininginput [1:20,]
+ [1] 0.1920092 0.9387414 0.2321167 0.9971618 0.1070533 0.5676305 0.9166575 0.2927712
+ [9] 0.9082967 0.5450713 0.5741461 0.1506681 0.7865140 0.6608886 0.6683666 0.7401266
+[17] 0.1369785 0.4545597 0.7288033 0.2924302
+> 
+> trainingdata <- cbind(scaled.trininginput, trainingoutput)
+> colnames(trainingdata) <- c("We", "Wy")
+> trainingdata [1:20,]
+          We         Wy
+1  0.1920092  13.020263
+2  0.9387414 107.694264
+3  0.2321167  15.836423
+4  0.9971618 118.866658
+5  0.1070533   7.905642
+6  0.5676305  49.483690
+7  0.9166575 103.613251
+8  0.2927712  20.584562
+9  0.9082967 102.088568
+10 0.5450713  46.656129
+11 0.5741461  50.315520
+12 0.1506681  10.387046
+13 0.7865140  81.149198
+14 0.6608886  62.037277
+15 0.6683666  63.104215
+16 0.7401266  73.797827
+17 0.1369785   9.575397
+18 0.4545597  36.130757
+19 0.7288033  72.055652
+20 0.2924302  20.556225
+> 
+> net.price <- neuralnet(Wy~We, trainingdata, hidden = c(5, 5, 5),
++                        threshold = 0.01, rep = 2)
+> 
+> net.price$result.matrix [1:3,]
+                          [,1]         [,2]
+error             1.025339e-02 1.469457e-02
+reached.threshold 9.500961e-03 9.834622e-03
+steps             1.890300e+04 4.779900e+04
+> 
+> plot (net.price)
+> 
+> #............... TESTOWANIE SIECI ............
+> #.............................................
+> testdata <- as.data.frame(runif(5, min, max))
+> scaled.testdata <- as.data.frame(lapply(testdata, normalize))
+> 
+> net.result <- compute(net.price, scaled.testdata)
+> func.result <- fzad(testdata)
+> 
+> compare.result <- cbind(net.result$net.result, func.result,
++                         abs((func.result-net.result$net.result)),
++                         abs((func.result-net.result$net.result))/func.result
++                         )
+> colnames(compare.result) <- c("Obliczenia sieci", "Wynik spodziewany",
++                               "błąd bezwzgl=|fn-ff|", "Błąd względny" )
+> compare.result
+  Obliczenia sieci Wynik spodziewany błąd bezwzgl=|fn-ff| Błąd względny
+1        79.079583          72.05455              7.02503     0.0974960
+2       119.386757          93.80285             25.58391     0.2727412
+3         3.105924          19.04541             15.93948     0.8369201
+4        16.903008          32.32745             15.42444     0.4771314
+5       109.108732          88.36170             20.74703     0.2347967
+> #.............................................
+> 
+> 
+> 
+> 
+> #.............................................
+> #.................. Zad 2 ....................
+> #.............................................
+> 
+> setwd("C:/Users/jacek/Dysk Google/ATH 1/APU/Lab3")
+> smartfony <- read.csv("JacekAdamczyk_APU_Lab1.csv")
+> smartfony
+    X            nazwy wyswietlacz pamiec_RAM pamiec_wbudowana aparat_foto cena
+1   1 Galaxy A Quantum        6.70          8              128          64 2268
+2   2      Galaxy A21S        6.50          4               64          48 1070
+3   3       Galaxy A41        6.10          4               64          48 1299
+4   4       Galaxy S20        6.70         12              128          64 5999
+5   5       Galaxy A71        6.70          6              128          64 1528
+6   6       Galaxy M21        6.40          6               64          48  999
+7   7    Galaxy Z Flip        6.70          8              256          12 6600
+8   8  Galaxy S10 Lite        6.70          8              128          48 2799
+9   9       Galaxy A51        6.50          4              128          48 1699
+10 10    Galaxy Note10        6.75         12              256          12 4999
+11 11  Galaxy Xcover4S        5.00          3               32          16 1119
+12 12 Galaxy XcoverPro        6.30          4               64          25 2199
+13 13       Galaxy A10        6.20          2               32          13  699
+14 14       Galaxy A80        6.70          8              128          48 2399
+15 15       Galaxy A40        5.70          4               64          16  999
+   liczba_ocen ocena         status_opinii
+1            7   5.0   mniej niż 50 opinii
+2            4   4.0   mniej niż 50 opinii
+3            6   4.0   mniej niż 50 opinii
+4            3   3.5   mniej niż 50 opinii
+5            3   3.0   mniej niż 50 opinii
+6           47   3.5   mniej niż 50 opinii
+7           17   4.0   mniej niż 50 opinii
+8           41   5.0   mniej niż 50 opinii
+9           19   4.5   mniej niż 50 opinii
+10          33   5.0   mniej niż 50 opinii
+11          35   4.5   mniej niż 50 opinii
+12          28   5.0   mniej niż 50 opinii
+13          11   4.0   mniej niż 50 opinii
+14          87   4.5         50-100 opinii
+15         406   5.0 więcej niż 100 opinii
+> 
+> cena <- normalize(smartfony$cena)
+> cena
+ [1] 0.26588714 0.06287070 0.10167768 0.89815286 0.14048466 0.05083884 1.00000000
+ [8] 0.35587189 0.16946280 0.72869005 0.07117438 0.25419420 0.00000000 0.28808676
+[15] 0.05083884
+> smartfony <- smartfony[,-6]
+> smartfony <- smartfony[,-1]
+> smartfony <- smartfony[,-5]
+> smartfony <- smartfony[,-7]
+> smartfony <- smartfony[,-5]
+> 
+> smartfony[,2:5] <- as.data.frame(lapply(smartfony[,2:5], normalize))
+> smartfony <- cbind(smartfony, cena)
+> smartfony
+              nazwy wyswietlacz pamiec_RAM pamiec_wbudowana ocena       cena
+1  Galaxy A Quantum   0.9714286        0.6        0.4285714  1.00 0.26588714
+2       Galaxy A21S   0.8571429        0.2        0.1428571  0.50 0.06287070
+3        Galaxy A41   0.6285714        0.2        0.1428571  0.50 0.10167768
+4        Galaxy S20   0.9714286        1.0        0.4285714  0.25 0.89815286
+5        Galaxy A71   0.9714286        0.4        0.4285714  0.00 0.14048466
+6        Galaxy M21   0.8000000        0.4        0.1428571  0.25 0.05083884
+7     Galaxy Z Flip   0.9714286        0.6        1.0000000  0.50 1.00000000
+8   Galaxy S10 Lite   0.9714286        0.6        0.4285714  1.00 0.35587189
+9        Galaxy A51   0.8571429        0.2        0.4285714  0.75 0.16946280
+10    Galaxy Note10   1.0000000        1.0        1.0000000  1.00 0.72869005
+11  Galaxy Xcover4S   0.0000000        0.1        0.0000000  0.75 0.07117438
+12 Galaxy XcoverPro   0.7428571        0.2        0.1428571  1.00 0.25419420
+13       Galaxy A10   0.6857143        0.0        0.0000000  0.50 0.00000000
+14       Galaxy A80   0.9714286        0.6        0.4285714  0.75 0.28808676
+15       Galaxy A40   0.4000000        0.2        0.1428571  1.00 0.05083884
+> 
+> net.price2 <- neuralnet(cena~wyswietlacz+pamiec_RAM+pamiec_wbudowana+
++                           ocena, smartfony, hidden = c(5,3), threshold = 0.01)
+> plot (net.price2)
+> 
+> #............... TESTOWANIE SIECI ............
+> #.............................................
+> 
+> szukanytel <- read.csv("szukany.csv")
+> szukanytel
+  X    nazwy wyswietlacz pamiec_RAM pamiec_wbudowana aparat_foto cena liczba_ocen
+1 1 Szukany1         5.8          4               32          12 1000           7
+2 2 Szukany2         6.0          6               48          20 2000          17
+3 3 Szukany3         6.0          8               64          48 5000           9
+  ocena       status_opinii
+1   5.0 mniej niż 50 opinii
+2   4.5 mniej niż 50 opinii
+3   5.0 mniej niż 50 opinii
+> szukanytel <- szukanytel[,-6]
+> szukanytel <- szukanytel[,-1]
+> szukanytel <- szukanytel[,-5]
+> szukanytel <- szukanytel[,-7]
+> szukanytel <- szukanytel[,-5]
+> 
+> szukanytel
+     nazwy wyswietlacz pamiec_RAM pamiec_wbudowana ocena
+1 Szukany1         5.8          4               32   5.0
+2 Szukany2         6.0          6               48   4.5
+3 Szukany3         6.0          8               64   5.0
+> 
+> szukanytel[,2:5] <- as.data.frame(lapply(szukanytel[,2:5], normalize))
+> szukanytel
+     nazwy wyswietlacz pamiec_RAM pamiec_wbudowana ocena
+1 Szukany1           0        0.0              0.0     1
+2 Szukany2           1        0.5              0.5     0
+3 Szukany3           1        1.0              1.0     1
+> net.result2 <- compute(net.price2, szukanytel)
+> net.result2$net.result
+           [,1]
+[1,] 0.08507656
+[2,] 0.31270373
+[3,] 0.75611743
+> print("Prognozowana cena smartfona w zależności od parametrów")
+[1] "Prognozowana cena smartfona w zależności od parametrów"
+> net.result2$net.result*6600 #wynik był znormalizowany
+          [,1]
+[1,]  561.5053
+[2,] 2063.8446
+[3,] 4990.3750
+> 
+> 
+> 
+> #Testowanie pierwszej sieci dla różnych zestawów parametrów
+> 
+> testdata <- as.data.frame(runif(5, min, max))
+> scaled.testdata <- as.data.frame(lapply(testdata, normalize))
+> 
+> net.result <- compute(net.price, scaled.testdata)
+> func.result <- fzad(testdata)
+> 
+> compare.result <- cbind(net.result$net.result, func.result,
++                         abs((func.result-net.result$net.result)),
++                         abs((func.result-net.result$net.result))/func.result
++                         )
+> colnames(compare.result) <- c("Obliczenia sieci", "Wynik spodziewany",
++                               "błąd bezwzgl=|fn-ff|", "Błąd względny" )
+> compare.result
+  Obliczenia sieci Wynik spodziewany błąd bezwzgl=|fn-ff| Błąd względny
+1         4.412577          17.69941            13.286838     0.7506936
+2        16.436390          25.83212             9.395728     0.3637227
+3        99.814678          61.34141            38.473273     0.6271991
+4         3.105924          16.51699            13.411063     0.8119558
+5       119.386757          68.34125            51.045505     0.7469208
+> testdata <- as.data.frame(runif(5, min, max))
+> scaled.testdata <- as.data.frame(lapply(testdata, normalize))
+> 
+> net.result <- compute(net.price, scaled.testdata)
+> func.result <- fzad(testdata)
+> 
+> compare.result <- cbind(net.result$net.result, func.result,
++                         abs((func.result-net.result$net.result)),
++                         abs((func.result-net.result$net.result))/func.result
++                         )
+> colnames(compare.result) <- c("Obliczenia sieci", "Wynik spodziewany",
++                               "błąd bezwzgl=|fn-ff|", "Błąd względny" )
+> compare.result
+  Obliczenia sieci Wynik spodziewany błąd bezwzgl=|fn-ff| Błąd względny
+1         3.105924          9.392084             6.286161    0.66930411
+2       118.991796        100.192206            18.799590    0.18763525
+3       119.386757        100.483531            18.903225    0.18812262
+4        65.470452         61.619094             3.851358    0.06250266
+5        24.241039         29.464980             5.223941    0.17729321
+> testdata <- as.data.frame(runif(5, min, max))
+> scaled.testdata <- as.data.frame(lapply(testdata, normalize))
+> 
+> net.result <- compute(net.price, scaled.testdata)
+> func.result <- fzad(testdata)
+> 
+> compare.result <- cbind(net.result$net.result, func.result,
++                         abs((func.result-net.result$net.result)),
++                         abs((func.result-net.result$net.result))/func.result
++                         )
+> colnames(compare.result) <- c("Obliczenia sieci", "Wynik spodziewany",
++                               "błąd bezwzgl=|fn-ff|", "Błąd względny" )
+> compare.result
+  Obliczenia sieci Wynik spodziewany błąd bezwzgl=|fn-ff| Błąd względny
+1        16.123589          46.26952            30.145926     0.6515289
+2        55.227391          76.44959            21.222198     0.2775973
+3       119.386757         115.43214             3.954613     0.0342592
+4         3.105924          31.10795            28.002028     0.9001566
+5        84.384429          94.99145            10.607025     0.1116629
+> testdata <- as.data.frame(runif(5, min, max))
+> scaled.testdata <- as.data.frame(lapply(testdata, normalize))
+> 
+> net.result <- compute(net.price, scaled.testdata)
+> func.result <- fzad(testdata)
+> 
+> compare.result <- cbind(net.result$net.result, func.result,
++                         abs((func.result-net.result$net.result)),
++                         abs((func.result-net.result$net.result))/func.result
++                         )
+> colnames(compare.result) <- c("Obliczenia sieci", "Wynik spodziewany",
++                               "błąd bezwzgl=|fn-ff|", "Błąd względny" )
+> compare.result
+  Obliczenia sieci Wynik spodziewany błąd bezwzgl=|fn-ff| Błąd względny
+1        56.519570         60.080841          3.561271360  5.927466e-02
+2       105.193987        106.108019          0.914031712  8.614162e-03
+3       119.386757        119.380607          0.006150045  5.151628e-05
+4         3.105924          5.958059          2.852135068  4.787021e-01
+5        63.375774         66.619956          3.244181417  4.869684e-02
+> testdata <- as.data.frame(runif(5, min, max))
+> scaled.testdata <- as.data.frame(lapply(testdata, normalize))
+> 
+> net.result <- compute(net.price, scaled.testdata)
+> func.result <- fzad(testdata)
+> 
+> compare.result <- cbind(net.result$net.result, func.result,
++                         abs((func.result-net.result$net.result)),
++                         abs((func.result-net.result$net.result))/func.result
++                         )
+> colnames(compare.result) <- c("Obliczenia sieci", "Wynik spodziewany",
++                               "błąd bezwzgl=|fn-ff|", "Błąd względny" )
+> compare.result
+  Obliczenia sieci Wynik spodziewany błąd bezwzgl=|fn-ff| Błąd względny
+1        54.404952         57.070326             2.665375    0.04670334
+2         3.105924          7.395412             4.289488    0.58002021
+3        40.733704         44.741019             4.007314    0.08956690
+4        60.016509         62.062346             2.045838    0.03296423
+5       119.386757        113.438844             5.947913    0.05243277
+> testdata <- as.data.frame(runif(5, min, max))
+> scaled.testdata <- as.data.frame(lapply(testdata, normalize))
+> 
+> net.result <- compute(net.price, scaled.testdata)
+> func.result <- fzad(testdata)
+> 
+> compare.result <- cbind(net.result$net.result, func.result,
++                         abs((func.result-net.result$net.result)),
++                         abs((func.result-net.result$net.result))/func.result
++                         )
+> colnames(compare.result) <- c("Obliczenia sieci", "Wynik spodziewany",
++                               "błąd bezwzgl=|fn-ff|", "Błąd względny" )
+> compare.result
+  Obliczenia sieci Wynik spodziewany błąd bezwzgl=|fn-ff| Błąd względny
+1        81.193732         56.293319            24.900414     0.4423334
+2        57.909192         41.757993            16.151199     0.3867810
+3       105.071477         70.947111            34.124366     0.4809832
+4       119.386757         79.668787            39.717970     0.4985386
+5         3.105924          4.541136             1.435212     0.3160470
+> testdata <- as.data.frame(runif(5, min, max))
+> scaled.testdata <- as.data.frame(lapply(testdata, normalize))
+> 
+> net.result <- compute(net.price, scaled.testdata)
+> func.result <- fzad(testdata)
+> 
+> compare.result <- cbind(net.result$net.result, func.result,
++                         abs((func.result-net.result$net.result)),
++                         abs((func.result-net.result$net.result))/func.result
++                         )
+> colnames(compare.result) <- c("Obliczenia sieci", "Wynik spodziewany",
++                               "błąd bezwzgl=|fn-ff|", "Błąd względny" )
+> compare.result
+  Obliczenia sieci Wynik spodziewany błąd bezwzgl=|fn-ff| Błąd względny
+1        24.752942         30.216981             5.464039     0.1808268
+2       119.386757        101.576507            17.810250     0.1753383
+3        30.135569         34.700224             4.564655     0.1315454
+4        28.215784         33.115005             4.899221     0.1479456
+5         3.105924          9.495459             6.389536     0.6729043
+> 
