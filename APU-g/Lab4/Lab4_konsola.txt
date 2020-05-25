@@ -1,0 +1,182 @@
+> #..... Jacek Adamczyk, sem 1, II st .......... 
+> #..... Lab 4, gr A, wariant 1 ................
+> #Uczenie maszynowe z użyciem drzew decyzyjnych
+> #.............................................
+> 
+> 
+> #install.packages("C50")
+> library("C50")
+> 
+> setwd("C:/Users/jacek/Dysk Google/ATH 1/APU/Lab4")
+> smartfony <- read.csv("JacekAdamczyk_APU_Lab1.csv")
+> smartfony
+    X            nazwy wyswietlacz pamiec_RAM pamiec_wbudowana aparat_foto cena
+1   1 Galaxy A Quantum        6.70          8              128          64 2268
+2   2      Galaxy A21S        6.50          4               64          48 1070
+3   3       Galaxy A41        6.10          4               64          48 1299
+4   4       Galaxy S20        6.70         12              128          64 5999
+5   5       Galaxy A71        6.70          6              128          64 1528
+6   6       Galaxy M21        6.40          6               64          48  999
+7   7    Galaxy Z Flip        6.70          8              256          12 6600
+8   8  Galaxy S10 Lite        6.70          8              128          48 2799
+9   9       Galaxy A51        6.50          4              128          48 1699
+10 10    Galaxy Note10        6.75         12              256          12 4999
+11 11  Galaxy Xcover4S        5.00          3               32          16 1119
+12 12 Galaxy XcoverPro        6.30          4               64          25 2199
+13 13       Galaxy A10        6.20          2               32          13  699
+14 14       Galaxy A80        6.70          8              128          48 2399
+15 15       Galaxy A40        5.70          4               64          16  999
+   liczba_ocen ocena         status_opinii
+1            7   5.0   mniej niż 50 opinii
+2            4   4.0   mniej niż 50 opinii
+3            6   4.0   mniej niż 50 opinii
+4            3   3.5   mniej niż 50 opinii
+5            3   3.0   mniej niż 50 opinii
+6           47   3.5   mniej niż 50 opinii
+7           17   4.0   mniej niż 50 opinii
+8           41   5.0   mniej niż 50 opinii
+9           19   4.5   mniej niż 50 opinii
+10          33   5.0   mniej niż 50 opinii
+11          35   4.5   mniej niż 50 opinii
+12          28   5.0   mniej niż 50 opinii
+13          11   4.0   mniej niż 50 opinii
+14          87   4.5         50-100 opinii
+15         406   5.0 więcej niż 100 opinii
+> View(smartfony)
+> summary(smartfony)
+       X                     nazwy    wyswietlacz      pamiec_RAM   pamiec_wbudowana
+ Min.   : 1.0   Galaxy A Quantum:1   Min.   :5.000   Min.   : 2.0   Min.   : 32.0   
+ 1st Qu.: 4.5   Galaxy A10      :1   1st Qu.:6.250   1st Qu.: 4.0   1st Qu.: 64.0   
+ Median : 8.0   Galaxy A21S     :1   Median :6.500   Median : 6.0   Median :128.0   
+ Mean   : 8.0   Galaxy A40      :1   Mean   :6.377   Mean   : 6.2   Mean   :110.9   
+ 3rd Qu.:11.5   Galaxy A41      :1   3rd Qu.:6.700   3rd Qu.: 8.0   3rd Qu.:128.0   
+ Max.   :15.0   Galaxy A51      :1   Max.   :6.750   Max.   :12.0   Max.   :256.0   
+                (Other)         :9                                                  
+  aparat_foto         cena       liczba_ocen        ocena    
+ Min.   :12.00   Min.   : 699   Min.   :  3.0   Min.   :3.0  
+ 1st Qu.:16.00   1st Qu.:1094   1st Qu.:  6.5   1st Qu.:4.0  
+ Median :48.00   Median :1699   Median : 19.0   Median :4.5  
+ Mean   :38.27   Mean   :2445   Mean   : 49.8   Mean   :4.3  
+ 3rd Qu.:48.00   3rd Qu.:2599   3rd Qu.: 38.0   3rd Qu.:5.0  
+ Max.   :64.00   Max.   :6600   Max.   :406.0   Max.   :5.0  
+                                                             
+               status_opinii
+ 50-100 opinii        : 1   
+ mniej niż 50 opinii  :13   
+ więcej niż 100 opinii: 1   
+                            
+                            
+                            
+                            
+> 
+> smartfony$ocena <- factor(smartfony$ocena)
+> smartfony
+    X            nazwy wyswietlacz pamiec_RAM pamiec_wbudowana aparat_foto cena
+1   1 Galaxy A Quantum        6.70          8              128          64 2268
+2   2      Galaxy A21S        6.50          4               64          48 1070
+3   3       Galaxy A41        6.10          4               64          48 1299
+4   4       Galaxy S20        6.70         12              128          64 5999
+5   5       Galaxy A71        6.70          6              128          64 1528
+6   6       Galaxy M21        6.40          6               64          48  999
+7   7    Galaxy Z Flip        6.70          8              256          12 6600
+8   8  Galaxy S10 Lite        6.70          8              128          48 2799
+9   9       Galaxy A51        6.50          4              128          48 1699
+10 10    Galaxy Note10        6.75         12              256          12 4999
+11 11  Galaxy Xcover4S        5.00          3               32          16 1119
+12 12 Galaxy XcoverPro        6.30          4               64          25 2199
+13 13       Galaxy A10        6.20          2               32          13  699
+14 14       Galaxy A80        6.70          8              128          48 2399
+15 15       Galaxy A40        5.70          4               64          16  999
+   liczba_ocen ocena         status_opinii
+1            7     5   mniej niż 50 opinii
+2            4     4   mniej niż 50 opinii
+3            6     4   mniej niż 50 opinii
+4            3   3.5   mniej niż 50 opinii
+5            3     3   mniej niż 50 opinii
+6           47   3.5   mniej niż 50 opinii
+7           17     4   mniej niż 50 opinii
+8           41     5   mniej niż 50 opinii
+9           19   4.5   mniej niż 50 opinii
+10          33     5   mniej niż 50 opinii
+11          35   4.5   mniej niż 50 opinii
+12          28     5   mniej niż 50 opinii
+13          11     4   mniej niż 50 opinii
+14          87   4.5         50-100 opinii
+15         406     5 więcej niż 100 opinii
+> 
+> drzewo <- C5.0.default(x=smartfony[,-9], y=smartfony$ocena )
+> 
+> summary(drzewo)
+
+Call:
+C5.0.default(x = smartfony[, -9], y = smartfony$ocena)
+
+
+C5.0 [Release 2.07 GPL Edition]  	Mon May 25 08:34:18 2020
+-------------------------------
+
+Class specified by attribute `outcome'
+
+Read 15 cases (10 attributes) from undefined.data
+
+Decision tree:
+
+status_opinii = 50-100 opinii: 4.5 (1)
+status_opinii = więcej niż 100 opinii: 5 (1)
+status_opinii = mniej niż 50 opinii:
+:...pamiec_RAM <= 4:
+    :...liczba_ocen <= 11: 4 (3)
+    :   liczba_ocen > 11: 4.5 (3/1)
+    pamiec_RAM > 4:
+    :...pamiec_RAM <= 6: 3 (2/1)
+        pamiec_RAM > 6: 5 (5/2)
+
+
+Evaluation on training data (15 cases):
+
+	    Decision Tree   
+	  ----------------  
+	  Size      Errors  
+
+	     6    4(26.7%)   <<
+
+
+	   (a)   (b)   (c)   (d)   (e)    <-classified as
+	  ----  ----  ----  ----  ----
+	     1                            (a): class 3
+	     1                       1    (b): class 3.5
+	                 3           1    (c): class 4
+	                       3          (d): class 4.5
+	                       1     4    (e): class 5
+
+
+	Attribute usage:
+
+	100.00%	status_opinii
+	 86.67%	pamiec_RAM
+	 40.00%	liczba_ocen
+
+
+Time: 0.0 secs
+
+> drzewo
+
+Call:
+C5.0.default(x = smartfony[, -9], y = smartfony$ocena)
+
+Classification Tree
+Number of samples: 15 
+Number of predictors: 9 
+
+Tree size: 6 
+
+Non-standard options: attempt to group attributes
+
+> plot(drzewo)
+> 
+> predict.C5.0(drzewo, smartfony[,-9])
+ [1] 5   4   4   5   3   3   5   5   4.5 5   4.5 4.5 4   4.5 5  
+Levels: 3 3.5 4 4.5 5
+> predict.C5.0(drzewo, smartfony[,-9], type = "class")
+ [1] 5   4   4   5   3   3   5   5   4.5 5   4.5 4.5 4   4.5 5  
+Levels: 3 3.5 4 4.5 5
