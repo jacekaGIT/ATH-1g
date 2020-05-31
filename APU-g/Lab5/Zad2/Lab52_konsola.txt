@@ -1,0 +1,242 @@
+> #..... Jacek Adamczyk, sem 1, II st .......... 
+> #..... Lab 5, gr A, wariant 1 ................
+> # Modelowanie procesów uczenia maszynowego ...
+> # w pakiecie MLR. Trenowanie, ocena ..........
+> # i porównywanie modeli w pakiecie MLR .......
+> #.............................................
+> 
+> # Zadanie 2
+> 
+> 
+> #install.packages("mlr")
+> #install.packages("rFerns")
+> #install.packages("randomForestSRC")
+> 
+> library("mlr")
+> library("rFerns")
+> library("randomForestSRC")
+> 
+> # Funkcja normalizująca dane w zakr min do max
+> normalize <- function(x) {
++   return ((x - min(x)) / (max(x) - min(x)))
++ }
+> 
+> setwd("C:/Users/jacek/Dysk Google/ATH 1/APU/Lab5/Zad2")
+> smartfony <- read.csv("JacekAdamczyk_APU_Lab1.csv")
+> smartfony
+    X            nazwy wyswietlacz pamiec_RAM pamiec_wbudowana aparat_foto cena
+1   1 Galaxy A Quantum        6.70          8              128          64 2268
+2   2      Galaxy A21S        6.50          4               64          48 1070
+3   3       Galaxy A41        6.10          4               64          48 1299
+4   4       Galaxy S20        6.70         12              128          64 5999
+5   5       Galaxy A71        6.70          6              128          64 1528
+6   6       Galaxy M21        6.40          6               64          48  999
+7   7    Galaxy Z Flip        6.70          8              256          12 6600
+8   8  Galaxy S10 Lite        6.70          8              128          48 2799
+9   9       Galaxy A51        6.50          4              128          48 1699
+10 10    Galaxy Note10        6.75         12              256          12 4999
+11 11  Galaxy Xcover4S        5.00          3               32          16 1119
+12 12 Galaxy XcoverPro        6.30          4               64          25 2199
+13 13       Galaxy A10        6.20          2               32          13  699
+14 14       Galaxy A80        6.70          8              128          48 2399
+15 15       Galaxy A40        5.70          4               64          16  999
+   liczba_ocen ocena         status_opinii
+1            7   5.0   mniej niż 50 opinii
+2            4   4.0   mniej niż 50 opinii
+3            6   4.0   mniej niż 50 opinii
+4            3   3.5   mniej niż 50 opinii
+5            3   3.0   mniej niż 50 opinii
+6           47   3.5   mniej niż 50 opinii
+7           17   4.0   mniej niż 50 opinii
+8           41   5.0   mniej niż 50 opinii
+9           19   4.5   mniej niż 50 opinii
+10          33   5.0   mniej niż 50 opinii
+11          35   4.5   mniej niż 50 opinii
+12          28   5.0   mniej niż 50 opinii
+13          11   4.0   mniej niż 50 opinii
+14          87   4.5         50-100 opinii
+15         406   5.0 więcej niż 100 opinii
+> head(smartfony)
+  X            nazwy wyswietlacz pamiec_RAM pamiec_wbudowana aparat_foto cena
+1 1 Galaxy A Quantum         6.7          8              128          64 2268
+2 2      Galaxy A21S         6.5          4               64          48 1070
+3 3       Galaxy A41         6.1          4               64          48 1299
+4 4       Galaxy S20         6.7         12              128          64 5999
+5 5       Galaxy A71         6.7          6              128          64 1528
+6 6       Galaxy M21         6.4          6               64          48  999
+  liczba_ocen ocena       status_opinii
+1           7   5.0 mniej niż 50 opinii
+2           4   4.0 mniej niż 50 opinii
+3           6   4.0 mniej niż 50 opinii
+4           3   3.5 mniej niż 50 opinii
+5           3   3.0 mniej niż 50 opinii
+6          47   3.5 mniej niż 50 opinii
+> 
+> smartfony$ocena <- factor(smartfony$ocena)
+> smartfony$ocena
+ [1] 5   4   4   3.5 3   3.5 4   5   4.5 5   4.5 5   4   4.5 5  
+Levels: 3 3.5 4 4.5 5
+> 
+> smartfony <- smartfony[,-6]
+> smartfony <- smartfony[,-1]
+> smartfony <- smartfony[,-5]
+> smartfony <- smartfony[,-7]
+> smartfony <- smartfony[,-5]
+> smartfony
+              nazwy wyswietlacz pamiec_RAM pamiec_wbudowana ocena
+1  Galaxy A Quantum        6.70          8              128     5
+2       Galaxy A21S        6.50          4               64     4
+3        Galaxy A41        6.10          4               64     4
+4        Galaxy S20        6.70         12              128   3.5
+5        Galaxy A71        6.70          6              128     3
+6        Galaxy M21        6.40          6               64   3.5
+7     Galaxy Z Flip        6.70          8              256     4
+8   Galaxy S10 Lite        6.70          8              128     5
+9        Galaxy A51        6.50          4              128   4.5
+10    Galaxy Note10        6.75         12              256     5
+11  Galaxy Xcover4S        5.00          3               32   4.5
+12 Galaxy XcoverPro        6.30          4               64     5
+13       Galaxy A10        6.20          2               32     4
+14       Galaxy A80        6.70          8              128   4.5
+15       Galaxy A40        5.70          4               64     5
+> 
+> smartfony$wyswietlacz <- normalize(smartfony$wyswietlacz)
+> smartfony$pamiec_RAM <- normalize(smartfony$pamiec_RAM)
+> smartfony$pamiec_wbudowana <- normalize(smartfony$pamiec_wbudowana)
+> smartfony <- data.frame(smartfony)
+> 
+> smartfony
+              nazwy wyswietlacz pamiec_RAM pamiec_wbudowana ocena
+1  Galaxy A Quantum   0.9714286        0.6        0.4285714     5
+2       Galaxy A21S   0.8571429        0.2        0.1428571     4
+3        Galaxy A41   0.6285714        0.2        0.1428571     4
+4        Galaxy S20   0.9714286        1.0        0.4285714   3.5
+5        Galaxy A71   0.9714286        0.4        0.4285714     3
+6        Galaxy M21   0.8000000        0.4        0.1428571   3.5
+7     Galaxy Z Flip   0.9714286        0.6        1.0000000     4
+8   Galaxy S10 Lite   0.9714286        0.6        0.4285714     5
+9        Galaxy A51   0.8571429        0.2        0.4285714   4.5
+10    Galaxy Note10   1.0000000        1.0        1.0000000     5
+11  Galaxy Xcover4S   0.0000000        0.1        0.0000000   4.5
+12 Galaxy XcoverPro   0.7428571        0.2        0.1428571     5
+13       Galaxy A10   0.6857143        0.0        0.0000000     4
+14       Galaxy A80   0.9714286        0.6        0.4285714   4.5
+15       Galaxy A40   0.4000000        0.2        0.1428571     5
+> 
+> zadanie = makeClassifTask(id = deparse(substitute(smartfony)),
++                                        smartfony,
++                                        "ocena",
++                                        weights = NULL,
++                                        blocking = NULL,
++                                        coordinates = NULL,
++                                        positive = NA_character_,
++                                        fixup.data = "warn",
++                                        check.data = TRUE)
+> 
+> ponowne_probkowanie = makeResampleDesc("CV", iters = 5)
+> 
+> metody_uczenia <- makeLearners(c("rpart",
++                                  "C50",
++                                  "rFerns",
++                                  "randomForestSRC"),
++                                type = "classif")
+> 
+> porownnanie_metod <- benchmark(learners = metody_uczenia,
++                                tasks = zadanie,
++                                resamplings = ponowne_probkowanie)
+Task: smartfony, Learner: classif.rpart
+Resampling: cross-validation
+Measures:             mmce      
+[Resample] iter 1:    0.6666667 
+[Resample] iter 2:    1.0000000 
+[Resample] iter 3:    0.6666667 
+[Resample] iter 4:    1.0000000 
+[Resample] iter 5:    1.0000000 
+
+
+Aggregated Result: mmce.test.mean=0.8666667
+
+
+Task: smartfony, Learner: classif.C50
+Resampling: cross-validation
+Measures:             mmce      
+[Resample] iter 1:    1.0000000 
+[Resample] iter 2:    1.0000000 
+[Resample] iter 3:    0.6666667 
+[Resample] iter 4:    1.0000000 
+[Resample] iter 5:    1.0000000 
+
+
+Aggregated Result: mmce.test.mean=0.9333333
+
+
+Task: smartfony, Learner: classif.rFerns
+Resampling: cross-validation
+Measures:             mmce      
+[Resample] iter 1:    1.0000000 
+[Resample] iter 2:    1.0000000 
+[Resample] iter 3:    0.6666667 
+[Resample] iter 4:    0.3333333 
+[Resample] iter 5:    1.0000000 
+
+
+Aggregated Result: mmce.test.mean=0.8000000
+
+
+Task: smartfony, Learner: classif.randomForestSRC
+Resampling: cross-validation
+Measures:             mmce      
+[Resample] iter 1:    1.0000000 
+[Resample] iter 2:    1.0000000 
+[Resample] iter 3:    1.0000000 
+[Resample] iter 4:    1.0000000 
+[Resample] iter 5:    1.0000000 
+
+
+Aggregated Result: mmce.test.mean=1.0000000
+
+
+> 
+> porownnanie_metod
+    task.id              learner.id mmce.test.mean
+1 smartfony           classif.rpart      0.8666667
+2 smartfony             classif.C50      0.9333333
+3 smartfony          classif.rFerns      0.8000000
+4 smartfony classif.randomForestSRC      1.0000000
+> porownnanie_metod$results
+$smartfony
+$smartfony$classif.rpart
+Resample Result
+Task: smartfony
+Learner: classif.rpart
+Aggr perf: mmce.test.mean=0.8666667
+Runtime: 0.0499969
+
+$smartfony$classif.C50
+Resample Result
+Task: smartfony
+Learner: classif.C50
+Aggr perf: mmce.test.mean=0.9333333
+Runtime: 0.0550001
+
+$smartfony$classif.rFerns
+Resample Result
+Task: smartfony
+Learner: classif.rFerns
+Aggr perf: mmce.test.mean=0.8000000
+Runtime: 0.0469992
+
+$smartfony$classif.randomForestSRC
+Resample Result
+Task: smartfony
+Learner: classif.randomForestSRC
+Aggr perf: mmce.test.mean=1.0000000
+Runtime: 0.34
+
+
+> 
+> plotBMRBoxplots(porownnanie_metod, measure = mmce,
++                 order.lrn = getBMRLearnerIds(porownnanie_metod))
+> plotBMRSummary(porownnanie_metod)
+> plotBMRRanksAsBarChart(porownnanie_metod, pos = "dodge",
++                        order.lrn = getBMRLearnerIds(porownnanie_metod))
